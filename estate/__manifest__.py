@@ -4,5 +4,12 @@
     'depends': ['base'],
     'author': 'Serbouti Mohamed Amine',
     'category': 'Technical',
-    'data': [ ]
+    'description': """
+    Description text
+    """,
+    # data files always loaded at installation
+    'data': [
+
+    ],
+
 }
