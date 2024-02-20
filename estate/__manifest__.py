@@ -9,7 +9,7 @@
     """,
     # data files always loaded at installation
     'data': [
-
+        'security/ir.model.access.csv',
     ],
     'license': 'LGPL-3',
 
