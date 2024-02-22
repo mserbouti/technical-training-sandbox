@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="estate_model_action" model="ir.actions.act_window">
+        <field name="name">Estate action</field>
+        <field name="res_model">estate.property</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            test de text help
+          </p>
+        </field>
+    </record>
+</odoo>
