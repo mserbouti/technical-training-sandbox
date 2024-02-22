@@ -1,3 +1,4 @@
+from dateutil.relativedelta import relativedelta
 from odoo import fields, models
 
 class Property(models.Model):
@@ -7,10 +8,13 @@ class Property(models.Model):
     name = fields.Char(required=True)
     description = fields.Text()
     postcode = fields.Char()
-    date_availability = fields.Date(string='Available From', copy=False)
+
+    default_date = fields.Datetime.now() + relativedelta(months=3)
+
+    date_availability = fields.Date(string='Available From', copy=False, default=default_date)
     expected_price = fields.Float(required=True)
     selling_price = fields.Float(readonly=True, copy=False)
-    bedrooms = fields.Integer()
+    bedrooms = fields.Integer(default="2")
     living_area = fields.Integer()
     facades = fields.Integer()
     garage = fields.Boolean()
