@@ -26,7 +26,13 @@ class Property(models.Model):
         help="Orientation of the garden")
     status = fields.Selection(
         string='Status',
-        selection=[('new', 'New'), ('offerr', 'Offer recieved'), ('offertn', 'Offer n')],
+        required=True,
+        copy=False,
+        selection=[
+            ('new', 'New'), 
+            ('offerr', 'Offer Received'), 
+            ('offerta', 'Offer Accepted'),
+            ('soldandc', 'Sold and Canceled')],
         default='new',
         help="Status de l'offre")
-    active = fields.Boolean(string='Active')
+    active = fields.Boolean(default=True)
