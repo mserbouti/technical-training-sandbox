@@ -37,3 +37,5 @@ class Property(models.Model):
         help="Status de l'offre")
     active = fields.Boolean(default=True)
     property_type_id = fields.Many2one("estate.property.type", string="Partner")
+    salesman = fields.Many2one("res.partner", string="Salesman", index=True, default=lambda self: self.env.user)
+    buyer = fields.Many2one("res.users", string="Buyer")
