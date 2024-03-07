@@ -45,6 +45,7 @@
                                     <field name="garden_area"/>
                                     <field name="status"/>
                                     <field name="garden_orientation"/>
+                                    <field name="total_area"/>
                                 </group>
                             </page>                            
                             <page string="Offers">
