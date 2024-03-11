@@ -1,6 +1,7 @@
 from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models
 
+
 class Property(models.Model):
     _name = "estate.property"
     _description = "estate description"
@@ -29,8 +30,8 @@ class Property(models.Model):
         required=True,
         copy=False,
         selection=[
-            ('new', 'New'), 
-            ('offerr', 'Offer Received'), 
+            ('new', 'New'),
+            ('offerr', 'Offer Received'),
             ('offerta', 'Offer Accepted'),
             ('soldandc', 'Sold and Canceled')],
         default='new',
@@ -54,3 +55,12 @@ class Property(models.Model):
     def _best_price(self):
         for record in self:
             record.best_price = max(record.offer_ids.mapped('price'))
+
+    @api.onchange("garden")
+    def _onchange_garden(self):
+        if self.garden:
+            self.garden_orientation = 0
+            self.garden_area = 0
+        else:
+            self.garden_orientation = 'north'
+            self.garden_area = 10
