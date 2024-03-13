@@ -1,5 +1,6 @@
 from dateutil.relativedelta import relativedelta
-from odoo import api, fields, models
+from odoo import api, exceptions, fields, models
+from odoo.exceptions import UserError, ValidationError
 
 
 class Property(models.Model):
@@ -14,7 +15,7 @@ class Property(models.Model):
 
     date_availability = fields.Date(string='Available From', copy=False, default=default_date)
     expected_price = fields.Float(required=True)
-    selling_price = fields.Float(readonly=True, copy=False)
+    selling_price = fields.Float(compute="_selling_price", readonly=True, copy=False)
     bedrooms = fields.Integer(default="2")
     living_area = fields.Integer()
     facades = fields.Integer()
@@ -33,7 +34,8 @@ class Property(models.Model):
             ('new', 'New'),
             ('offerr', 'Offer Received'),
             ('offerta', 'Offer Accepted'),
-            ('soldandc', 'Sold and Canceled')],
+            ('sold', 'Sold'),
+            ('canceled', 'Canceled')],
         default='new',
         help="Status de l'offre")
     active = fields.Boolean(default=True)
@@ -54,13 +56,42 @@ class Property(models.Model):
     @api.depends('offer_ids')
     def _best_price(self):
         for record in self:
-            record.best_price = max(record.offer_ids.mapped('price'))
+            if record.offer_ids:
+                record.best_price = max(record.offer_ids.mapped('price'))
+            else:
+                record.best_price = 0
 
     @api.onchange("garden")
     def _onchange_garden(self):
         if self.garden:
-            self.garden_orientation = 0
-            self.garden_area = 0
-        else:
             self.garden_orientation = 'north'
             self.garden_area = 10
+        else:
+            self.garden_orientation = 0
+            self.garden_area = 0
+
+    @api.depends('selling_price')
+    def _selling_price(self):
+        for record in self:
+            accepted_offers = record.offer_ids.filtered(lambda offer: offer.status == 'accepted')
+            if accepted_offers:
+                max_price_offer = max(accepted_offers, key=lambda offer: offer.price)
+                record.selling_price = max_price_offer.price
+                record.buyer = max_price_offer.partner_id
+            else:
+                record.selling_price = 0.0
+    def change_status_to_canceled(self):
+        for record in self:
+            if record.status != 'sold':
+                record.status = 'canceled'
+            else:
+                raise exceptions.UserError(('is sold !!'))
+        return True
+
+    def change_status_to_sold(self):
+        for record in self:
+            if record.status != 'canceled':
+                record.status = 'sold'
+            else:
+                raise exceptions.UserError(('is canceled !!'))
+        return True
