@@ -1,7 +1,6 @@
 from datetime import timedelta
-
 from odoo import api, fields, models
-
+from odoo.exceptions import UserError, ValidationError
 
 class Property(models.Model):
     _name = "estate.property.offer"
@@ -17,6 +16,11 @@ class Property(models.Model):
     validity = fields.Integer(string="Validity", default=7)
     date_deadline = fields.Date(compute="_compute_date_deadline", inverse="_inverse_date_deadline", string="Date Deadline")
 
+    _sql_constraints = [
+        ('check_offer_price', 'CHECK(price > 0)',
+         'Offer Price must be positive.')
+    ]
+
     @api.depends("validity", "create_date")
     def _compute_date_deadline(self):
         for record in self:
@@ -31,9 +35,19 @@ class Property(models.Model):
             record.validity = (record.date_deadline - record.create_date.date()).days
 
     def offer_accept(self):
-        for record in self:
-            record.status = 'accepted'
-        return True
+        if "accepted" in self.mapped("property_id.offer_ids.status"):
+            raise UserError("An offer as already been accepted.")
+        self.write(
+            {
+                "status": "accepted",
+            }
+        )
+        return self.mapped("property_id").write(
+            {
+                "selling_price": self.price,
+                "buyer": self.partner_id.id,
+            }
+        )
 
     def offer_refuse(self):
         for record in self:

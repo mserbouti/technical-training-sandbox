@@ -1,6 +1,7 @@
 from dateutil.relativedelta import relativedelta
-from odoo import api, exceptions, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools import float_utils
 
 
 class Property(models.Model):
@@ -15,7 +16,7 @@ class Property(models.Model):
 
     date_availability = fields.Date(string='Available From', copy=False, default=default_date)
     expected_price = fields.Float(required=True)
-    selling_price = fields.Float(compute="_selling_price", readonly=True, copy=False)
+    selling_price = fields.Float(readonly=True, copy=False)
     bedrooms = fields.Integer(default="2")
     living_area = fields.Integer()
     facades = fields.Integer()
@@ -48,6 +49,13 @@ class Property(models.Model):
     total_area = fields.Float(compute="_compute_total_area", string="Total Area (sqm)")
     best_price = fields.Float(compute="_best_price", string="Best Price")
 
+    _sql_constraints = [
+        ('check_expected_price', 'CHECK(expected_price > 0)',
+         'Expected Price must be positive.'),
+        ('check_selling_price', 'CHECK(selling_price >= 0)',
+         'Selling Price must be positive.')
+    ]
+
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
         for record in self:
@@ -70,6 +78,7 @@ class Property(models.Model):
             self.garden_orientation = 0
             self.garden_area = 0
 
+
     @api.depends('selling_price')
     def _selling_price(self):
         for record in self:
@@ -80,12 +89,19 @@ class Property(models.Model):
                 record.buyer = max_price_offer.partner_id
             else:
                 record.selling_price = 0.0
+
+    @api.constrains('selling_price')
+    def _check_selling_price(self):
+        for record in self:
+            if record.selling_price < 10:
+                raise UserError('grand')
+
     def change_status_to_canceled(self):
         for record in self:
             if record.status != 'sold':
                 record.status = 'canceled'
             else:
-                raise exceptions.UserError(('is sold !!'))
+                raise UserError(('is sold !!'))
         return True
 
     def change_status_to_sold(self):
@@ -93,5 +109,5 @@ class Property(models.Model):
             if record.status != 'canceled':
                 record.status = 'sold'
             else:
-                raise exceptions.UserError(('is canceled !!'))
+                raise UserError(('is canceled !!'))
         return True
