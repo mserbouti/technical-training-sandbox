@@ -1,7 +1,7 @@
 from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
-from odoo.tools import float_utils
+from odoo.tools.float_utils import float_compare, float_is_zero
 
 
 class Property(models.Model):
@@ -90,11 +90,16 @@ class Property(models.Model):
             else:
                 record.selling_price = 0.0
 
-    @api.constrains('selling_price')
+    @api.constrains('selling_price', 'expected_price')
     def _check_selling_price(self):
         for record in self:
-            if record.selling_price < 10:
-                raise UserError('grand')
+            if (
+                    not float_is_zero(record.selling_price, precision_rounding=0.01)
+                    and float_compare(record.selling_price, record.expected_price * 0.9, precision_rounding=0.01) < 0
+            ):
+                raise ValidationError(
+                    "the selling price cannot be lower than 90% of the expected price "
+                )
 
     def change_status_to_canceled(self):
         for record in self:
