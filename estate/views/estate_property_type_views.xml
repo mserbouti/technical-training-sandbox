@@ -16,6 +16,7 @@
         <field name="arch" type="xml">
             <tree string="Types list">
                 <field name="name" string="Title"/>
+                <field name="sequence" widget="handle"/>
             </tree>
         </field>
     </record>

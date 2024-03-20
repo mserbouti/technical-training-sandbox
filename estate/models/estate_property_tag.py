@@ -6,6 +6,7 @@ class Property(models.Model):
     _order = "name asc"
 
     name = fields.Char(required=True, unique=True)
+    color = fields.Integer(string="Color")
 
     _sql_constraints = [
         ('unique_tag_name', 'UNIQUE(name)',
