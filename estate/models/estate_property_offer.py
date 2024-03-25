@@ -16,6 +16,7 @@ class Property(models.Model):
     property_id = fields.Many2one("estate.property", string="Property", required=True)
     validity = fields.Integer(string="Validity", default=7)
     date_deadline = fields.Date(compute="_compute_date_deadline", inverse="_inverse_date_deadline", string="Date Deadline")
+    property_type_id = fields.Many2one("estate.property.type", related="property_id.property_type_id")
 
     _sql_constraints = [
         ('check_offer_price', 'CHECK(price > 0)',
