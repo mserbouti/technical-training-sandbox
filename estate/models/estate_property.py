@@ -57,6 +57,13 @@ class Property(models.Model):
          'Selling Price must be positive.')
     ]
 
+    @api.ondelete(at_uninstall=False)
+    def _ondelete_prevent_new_canceled(self):
+        for record in self:
+            if record.status not in ['new', 'canceled']:
+                raise UserError("only new and canceled properties...")
+
+
     @api.depends('living_area', 'garden_area')
     def _compute_total_area(self):
         for record in self:

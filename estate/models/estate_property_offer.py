@@ -1,6 +1,7 @@
 from datetime import timedelta
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
+from odoo.tools import float_compare
 
 class Property(models.Model):
     _name = "estate.property.offer"
@@ -22,6 +23,17 @@ class Property(models.Model):
         ('check_offer_price', 'CHECK(price > 0)',
          'Offer Price must be positive.')
     ]
+
+    @api.model
+    def create(self, vals):
+        property_id = vals['property_id']
+        if property_id:
+            existing_offers = self.search([('property_id', '=', property_id)])
+            if existing_offers and vals['price'] <= max(existing_offers.mapped('price')):
+                raise ValidationError("Offer Price must be higher than previous offers.")
+            property_record = self.env['estate.property'].browse(property_id)
+            property_record.write({'status': 'offerr'})
+        return super().create(vals)
 
     @api.depends("validity", "create_date")
     def _compute_date_deadline(self):
