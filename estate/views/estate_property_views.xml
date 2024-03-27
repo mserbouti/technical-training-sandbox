@@ -6,12 +6,15 @@
         <field name="arch" type="xml">
             <tree string="Mon test list" decoration-success="status in ('offerr','offerta')" decoration-bf="status=='offerta'"  decoration-muted="status=='sold'">
                 <field name="name" string="Title"/>
-                <field name="postcode"/>
-                <field name="bedrooms"/>
-                <field name="living_area"/>
                 <field name="property_type_id"/>
+                <field name="postcode"/>
+                <field name="tag_ids" string="Tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                <field name="bedrooms"/>
+                <field name="living_area" string="Living Area (sqm)"/>
+                <field name="expected_price"/>
+                <field name="selling_price"/>
                 <field name="date_availability" optional="hide"/>
-                <field name="status" invisible="1"/>
+                <field name="status" invisible="1" string=""/>
             </tree>
         </field>
     </record>
