@@ -2,7 +2,9 @@ from dateutil.relativedelta import relativedelta
 from odoo import api, fields, models
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare, float_is_zero
+import logging
 
+_logger = logging.getLogger(__name__)
 
 class Property(models.Model):
     _name = "estate.property"
@@ -42,8 +44,8 @@ class Property(models.Model):
         help="Status de l'offre")
     active = fields.Boolean(default=True)
     property_type_id = fields.Many2one("estate.property.type", string="Partner")
-    salesman = fields.Many2one("res.partner", string="Salesman", index=True, default=lambda self: self.env.user)
-    buyer = fields.Many2one("res.users", string="Buyer")
+    salesman = fields.Many2one("res.users", string="Salesman", index=True, default=lambda self: self.env.user)
+    buyer = fields.Many2one("res.partner", string="Buyer")
     tag_ids = fields.Many2many("estate.property.tag", string="Tags")
     
     offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
@@ -121,6 +123,7 @@ class Property(models.Model):
         for record in self:
             if record.status != 'canceled':
                 record.status = 'sold'
+                _logger.info("Property status changed to sold: %s", self.name)
             else:
                 raise UserError(('is canceled !!'))
         return True

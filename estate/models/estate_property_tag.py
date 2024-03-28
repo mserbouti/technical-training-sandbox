@@ -5,7 +5,7 @@ class Property(models.Model):
     _description = "estate property tag"
     _order = "name asc"
 
-    name = fields.Char(required=True, unique=True)
+    name = fields.Char(required=True)
     color = fields.Integer(string="Color")
 
     _sql_constraints = [

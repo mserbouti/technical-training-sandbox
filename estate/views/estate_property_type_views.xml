@@ -20,14 +20,14 @@
             </tree>
         </field>
     </record>
-        <record id="estate_view_type_form" model="ir.ui.view">
+    <record id="estate_view_type_form" model="ir.ui.view">
         <field name="name">estate.property.type.form</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
-            <form string="form test">
+            <form>
                 <sheet>
-                    <div class="oe_button_box" name="button_box" groups="base.group_user">
-                        <button class="oe_stat_button " name="%(estate_model_offer_action)d" icon="fa-money" type="action">
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(estate.estate_model_offer_action)d" type="action" class="oe_stat_button" icon="fa-money">
                             <field name="offer_count" widget="statinfo" string="Offers"/>
                         </button>
                     </div>
@@ -48,7 +48,7 @@
             </form>
         </field>
     </record>
-        <record id="estate_view_type_search" model="ir.ui.view">
+    <record id="estate_view_type_search" model="ir.ui.view">
         <field name="name">estate.property.type.search</field>
         <field name="model">estate.property.type</field>
         <field name="arch" type="xml">
