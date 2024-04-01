@@ -34,10 +34,23 @@
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <kanban>
+                <field name="status"/>
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click">
                             <field name="name"/>
+                            <div>
+                                Expected Price: <field name="expected_price"/>
+                            </div>
+                            <div t-if="record.selling_price.raw_value > 0">
+                                Selling Price: <field name="selling_price"/>
+                            </div>
+                            <div t-if="record.status.raw_value == 'offerr'">
+                                Best Offer: <field name="best_price"/>
+                            </div>
+                            <div>
+                                <field name="tag_ids" string="Tags" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                            </div>
                         </div>
                     </t>
                 </templates>
