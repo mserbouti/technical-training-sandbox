@@ -8,9 +8,9 @@
             <Counter />
         </div>
         <div>
-            <Card title="'card 1'" content="'content of card 1'"/>
-            <Card title="'card 2'" content="'content of card 2'"/>
-            <Card title="'card 3'" content="'content of card 3'"/>
+            <Card title="'card 1'" content="value1"/>
+            <Card title="'card 2'" content="value1"/>
+            <Card title="'card 3'" content="value2"/>
         </div>
     </t>
 
