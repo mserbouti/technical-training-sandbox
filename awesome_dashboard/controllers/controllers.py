@@ -31,6 +31,7 @@ class AwesomeDashboard(http.Controller):
                 's': random.randint(0, 150),
                 'xl': random.randint(0, 150),
             },
-            'total_amount': random.randint(100, 1000)
+            'total_amount': random.randint(100, 1000),
+            'test': random.randint(100, 1000)
         }
 

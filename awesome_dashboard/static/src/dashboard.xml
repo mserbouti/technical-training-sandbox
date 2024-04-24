@@ -38,6 +38,12 @@
                         <t t-esc="statistics.total_amount"/>
                     </div>
                 </DashboardItem>
+                                <DashboardItem>
+                    test
+                    <div class="fs-1 fw-bold text-success text-center">
+                        <t t-esc="statistics.test"/>
+                    </div>
+                </DashboardItem>
             </div>
         </Layout>
     </t>
