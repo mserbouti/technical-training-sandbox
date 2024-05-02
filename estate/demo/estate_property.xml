@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="1" model="estate.property">
+            <field name="name">Big Villa</field>
+            <field name="status">new</field>
+            <field name="expected_price">1600000</field>
+            <field name="postcode">12345</field>
+            <field name="date_availability">2020-02-02</field>
+            <field name="selling_price">0</field>
+            <field name="bedrooms">6</field>
+            <field name="living_area">100</field>
+            <field name="facades">4</field>
+            <field name="garage" eval="1" />
+            <field name="garden_area">100000</field>
+            <field name="garden_orientation">south</field>
+            <field name="garden" eval="1" />
+        </record>
+        <record id="idizdz2" model="estate.property">
+            <field name="name">Big Villa 2</field>
+            <field name="status">offerr</field>
+            <field name="expected_price">10</field>
+        </record>
+    </data>
+</odoo>

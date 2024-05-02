@@ -17,5 +17,10 @@
         "views/res_users_views.xml",
         "views/estate_menus.xml",
     ],
+    "demo": [
+        "demo/estate.property.type.csv",
+        "demo/estate_property.xml",
+    ],
+    "application": True,
     "license": "LGPL-3",
 }
