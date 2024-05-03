@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <data>
-        <record id="1" model="estate.property">
+        <record id="estate1" model="estate.property">
             <field name="name">Big Villa</field>
             <field name="status">new</field>
             <field name="expected_price">1600000</field>
@@ -15,11 +15,13 @@
             <field name="garden_area">100000</field>
             <field name="garden_orientation">south</field>
             <field name="garden" eval="1" />
+            <field name="property_type_id" ref="estate.type1"/>
         </record>
         <record id="idizdz2" model="estate.property">
             <field name="name">Big Villa 2</field>
             <field name="status">offerr</field>
             <field name="expected_price">10</field>
+            <field name="property_type_id" ref="estate.type1"/>
         </record>
     </data>
 </odoo>

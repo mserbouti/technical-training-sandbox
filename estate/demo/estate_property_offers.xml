@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="offer1" model="estate.property.offer">
+            <field name="partner_id">14</field>
+            <field name="property_id" ref="estate.estate1"/>
+            <field name="price">1500000</field>
+            <field name="validity">14</field>
+            <field name="date_deadline" eval="datetime.now() + relativedelta(months=1)"/>
+        </record>
+        <function model="estate.property.offer" name="offer_accept">
+            <value eval="[ref('offer1')]"/>
+        </function>
+    </data>
+</odoo>
