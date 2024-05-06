@@ -22,6 +22,21 @@
             <field name="status">offerr</field>
             <field name="expected_price">10</field>
             <field name="property_type_id" ref="estate.type1"/>
+            <field name="offer_ids" eval="[
+                Command.create({
+                    'partner_id': 13,
+                    'price': 1500000,
+                    'validity': 11,
+                    'date_deadline': '2025-10-10',
+                }),
+                Command.create({
+                    'partner_id': 12,
+                    'price': 1600000,
+                    'validity': 11,
+                    'date_deadline': '2025-10-10',
+                })
+            ]"/>
         </record>
+        
     </data>
 </odoo>
