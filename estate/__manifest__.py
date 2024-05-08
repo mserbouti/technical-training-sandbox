@@ -3,13 +3,14 @@
     "version": "1.0",
     "depends": ["base"],
     "author": "Serbouti Mohamed Amine",
-    "category": "Technical",
+    "category": "Real Estate/Brokerage",
     "description": """
     Description text
     """,
     # data files always loaded at installation
     "data": [
         "security/ir.model.access.csv",
+        "security/security.xml",
         "views/estate_property_views.xml",
         "views/estate_property_tag_views.xml",
         "views/estate_property_offer_views.xml",
