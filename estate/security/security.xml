@@ -10,4 +10,24 @@
         <!-- Implies Agent -->
         <field name="implied_ids" eval="[(4, ref('estate_group_user'))]"/>
     </record>
+    <record id="rule_agent_property_access" model="ir.rule">
+        <field name="name">Agent Property Access Rule</field>
+        <field name="model_id" ref="model_estate_property"/>
+        <field name="domain_force">['|', ('salesman', '=', False), ('salesman', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('estate_group_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+    <record id="rule_manager_full_property_access" model="ir.rule">
+        <field name="name">Manager Full Property Access Rule</field>
+        <field name="model_id" ref="model_estate_property"/>
+        <field name="domain_force">[(1,'=',1)]</field>
+        <field name="groups" eval="[(4, ref('estate_group_manager'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+    </record>
 </odoo>
