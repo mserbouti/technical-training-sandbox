@@ -17,12 +17,23 @@
         "views/estate_property_type_views.xml",
         "views/res_users_views.xml",
         "views/estate_menus.xml",
+        "views/hello.xml",
     ],
     "demo": [
         "demo/estate.property.type.csv",
         "demo/estate_property.xml",
         "demo/estate_property_offers.xml",
     ],
+    "assets": {
+        "estate.assets_hello": [
+            ("include", "web._assets_helpers"),
+            "web/static/src/scss/pre_variables.scss",
+            "web/static/lib/bootstrap/scss/_variables.scss",
+            ("include", "web._assets_bootstrap"),
+            ("include", "web._assets_core"),
+            "estate/static/src/hello/**/*",
+        ],
+    },
     "application": True,
     "license": "LGPL-3",
 }
