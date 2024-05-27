@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<odoo>
+    <template id="estate.portal_my_home" inherit_id="portal.portal_my_home">
+        <xpath expr="//*[hasclass('o_portal_my_home')]" position="before">
+            <owl-component name="estate.MyComponent" />
+        </xpath>
+    </template>
+</odoo>

@@ -1,7 +1,7 @@
 {
     "name": "Estate",
     "version": "1.0",
-    "depends": ["base"],
+    "depends": ["base", "portal"],
     "author": "Serbouti Mohamed Amine",
     "category": "Real Estate/Brokerage",
     "description": """
@@ -18,6 +18,7 @@
         "views/res_users_views.xml",
         "views/estate_menus.xml",
         "views/hello.xml",
+        "views/templates.xml",
     ],
     "demo": [
         "demo/estate.property.type.csv",
@@ -32,6 +33,9 @@
             ("include", "web._assets_bootstrap"),
             ("include", "web._assets_core"),
             "estate/static/src/hello/**/*",
+        ],
+        "web.assets_frontend": [
+            "estate/static/src/portal_component/**/*",
         ],
     },
     "application": True,
