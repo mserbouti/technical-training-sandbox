@@ -1,0 +1,14 @@
+<odoo>
+    <template id="lim_tests.essayer_une_selle" name="Essayer une selle">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <section class="custom-page-section">
+                        <h1>Welcome to the Custom Page</h1>
+                        <p>This is a custom page.</p>
+                    </section>
+                </div>
+            </div>
+        </t>
+    </template>
+</odoo>

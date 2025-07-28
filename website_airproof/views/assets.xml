@@ -1,0 +1,7 @@
+<odoo>
+    <template id="custom_theme_assets" name="Custom Theme assets" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" href="/website_airproof/static/src/scss/style.scss"/>
+        </xpath>
+    </template>
+</odoo>

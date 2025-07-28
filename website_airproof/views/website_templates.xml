@@ -1,0 +1,35 @@
+<odoo>
+    <template id="layout_custom" inherit_id="website.layout" name="Welcome Message">
+        <xpath expr="//head" position="inside">
+            <link rel="stylesheet" href="/website_airproof/static/src/scss/style.scss"/>
+            <script type="text/javascript" src="/website_airproof/static/src/js/script.js"></script>
+        </xpath>
+        <xpath expr="//header" position="attributes">
+            <attribute name="t-attf-class" add="x_airproof_header" separator=" "/>
+        </xpath>
+        <xpath expr="//main" position="attributes">
+            <attribute name="class" add="dccd" separator=" "/>
+        </xpath>
+        <xpath expr="//header" position="before">
+            <div>Some content before the headeraaa</div>
+        </xpath>
+        <!-- <xpath expr="//main" position="inside">
+           <li>Last element of the list</li>
+        </xpath> -->
+    </template>
+    <template id="basic_snippet" name="Basic Snippet">
+        <section class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Basic Snippet.........</h1>
+                    <p>This is a basic snippet that is used to test the basic functionality of the snippets.</p>
+                </div>
+            </div>
+        </section>
+    </template>
+    <template id="external_snippets" inherit_id="website.snippets" priority="8">
+    <xpath expr="//div[@id='snippet_content']//t[@t-snippet][last()]" position="after">
+        <t t-snippet="website_airproof.basic_snippet"/>
+    </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,10 @@
+/* static/src/scss/style.scss */
+$o-theme-primary: #3498db;
+
+@import 'web.assets_frontend';
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: $o-theme-primary;
+    display: none;
+}
